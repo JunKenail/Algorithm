@@ -1,0 +1,45 @@
+#include <cstdio>
+#include <cstring>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+const int maxk=2510;
+struct student{
+    char name[5];
+};
+
+bool cmp(student a,student b){
+    return strcmp(a.name,b.name)<0;
+}
+
+vector<student> course[maxk];
+
+int main(){
+    int n,k;//student number,course number
+    char namei[5];
+    
+    int coursenumber,coursei;
+    int sizei;
+    while(scanf("%d%d",&n,&k)!=EOF){
+        for(int i=0;i<n;i++){
+            scanf("%s %d",namei,&coursenumber);
+            for(int j=0;j<coursenumber;j++){
+                scanf("%d",&coursei);
+                student stui;
+                strcpy(stui.name,namei);
+                course[coursei].push_back(stui);
+            }
+        }
+        for(int i=1;i<k+1;i++){
+            sizei=course[i].size();
+            printf("%d %d\n",i,sizei);
+            sort(course[i].begin(),course[i].end(),cmp);
+            for(int j=0;j<sizei;j++){
+                printf("%s\n",course[i][j].name);
+            }
+        }
+    }
+    
+    return 0;
+}
