@@ -1,0 +1,43 @@
+#include <cstdio>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+const int maxn=26*26*26*10+1;
+vector<int> stu[maxn];
+int hashfc(char name[]){
+    int hash=0;
+    for(int i=0;i<3;i++){
+        hash=hash*26+name[i]-'A';
+    }
+    return hash*10+name[3]-'0';
+}
+
+int main(){
+    int n,k,hashi,sizei;
+    int ki,ni;
+    char temp1[5];
+    while(scanf("%d %d",&n,&k)!=EOF){
+        for(int j=0;j<k;j++){
+            scanf("%d %d",&ki,&ni);
+            for(int i=0;i<ni;i++){
+                scanf("%s",temp1);
+                hashi=hashfc(temp1);
+                stu[hashi].push_back(ki);
+            }
+        }
+        for(int i=0;i<n;i++){
+            scanf("%s",temp1);
+            printf("%s ",temp1);
+            hashi=hashfc(temp1);
+            sizei=stu[hashi].size();
+            printf("%d",sizei);
+            sort(stu[hashi].begin(),stu[hashi].end());
+            for(int j=0;j<sizei;j++){
+                printf(" %d",stu[hashi][j]);
+            }
+            printf("\n");
+        }
+    }
+    return 0;
+}
